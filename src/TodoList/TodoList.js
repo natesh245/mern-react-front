@@ -3,14 +3,18 @@ import "./TodoList.css";
 
 import Todo from "./Todo/Todo";
 
-function TodoList() {
+function TodoList(props) {
   return (
     <div className="todo-list">
-      <Todo />
-      <Todo />
-      <Todo />
-      <Todo />
-      <Todo />
+      {props.todoList.map((todo) => {
+        return (
+          <Todo
+            title={todo.title}
+            description={todo.description}
+            key={todo._id}
+          />
+        );
+      })}
     </div>
   );
 }

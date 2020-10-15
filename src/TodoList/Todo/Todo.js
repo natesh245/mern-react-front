@@ -1,11 +1,11 @@
 import React from "react";
 import "./Todo.css";
 
-function Todo() {
+function Todo(props) {
   return (
     <div className="todo">
-      <h2>Task title</h2>
-      <p>task description dfgsdgsdgsdgsdgsdgsdgsdgsddgbgfjgset</p>
+      <h2>{props.title}</h2>
+      <p>{props.description}</p>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
   BrowserRouter as Router,
   NavLink,
@@ -11,6 +12,9 @@ import "./App.css";
 import TodoList from "./TodoList/TodoList";
 
 class App extends React.Component {
+  state = {
+    todoList: [],
+  };
   render() {
     return (
       <Router>
@@ -29,12 +33,21 @@ class App extends React.Component {
           <div className="body-container">
             <Switch>
               <Route path="/create" render={() => <h2>create</h2>} />
-              <Route path="/" component={TodoList} />
+              <Route path="/">
+                <TodoList todoList={this.state.todoList} />
+              </Route>
             </Switch>
           </div>
         </div>
       </Router>
     );
+  }
+
+  componentDidMount() {
+    axios.get("http://localhost:4000/todos/").then((response) => {
+      console.log(response.data);
+      this.setState({ todoList: response.data });
+    });
   }
 }
 
