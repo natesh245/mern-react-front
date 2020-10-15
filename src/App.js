@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  NavLink,
+  Route,
+  Switch,
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+
+import TodoList from "./TodoList/TodoList";
+
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <header>
+            <div className="logo-container">TODO-APP</div>
+            <div className="link-container">
+              <NavLink to="/" className="nav-links" exact>
+                ToDos
+              </NavLink>
+              <NavLink to="/create" className="nav-links">
+                create
+              </NavLink>
+            </div>
+          </header>
+          <div className="body-container">
+            <Switch>
+              <Route path="/create" render={() => <h2>create</h2>} />
+              <Route path="/" component={TodoList} />
+            </Switch>
+          </div>
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

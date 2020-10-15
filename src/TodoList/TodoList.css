@@ -1,0 +1,6 @@
+.todo-list {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(241, 241, 241);
+  overflow-y: scroll;
+}
