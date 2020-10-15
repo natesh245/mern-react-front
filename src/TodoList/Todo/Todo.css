@@ -10,6 +10,7 @@
   height: auto;
   box-shadow: 2px 2px 4px 4px rgb(175, 175, 175);
   transition: all 0.3s;
+  position: relative;
 }
 
 h2 {
@@ -23,4 +24,18 @@ p {
 
 .todo:hover {
   transform: scale(1.1);
+}
+
+button {
+  padding: 8px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: black;
+  border: 1px solid black;
+  display: none;
+}
+
+.todo:hover button {
+  display: block;
 }

@@ -10,7 +10,7 @@ function Header() {
         <div className="logo-container">TODO-APP</div>
         <div className="link-container">
           <NavLink to="/" className="nav-links" exact>
-            ToDos
+            To-Dos
           </NavLink>
           <NavLink to="/create" className="nav-links">
             create
