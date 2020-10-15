@@ -2,39 +2,47 @@ import React from "react";
 import axios from "axios";
 import {
   BrowserRouter as Router,
-  NavLink,
+  // NavLink,
   Route,
   Switch,
 } from "react-router-dom";
 
 import "./App.css";
 
+import Header from "./header/Header";
 import TodoList from "./TodoList/TodoList";
 import CreateForm from "./CreateForm/CreateForm";
 
 class App extends React.Component {
-  state = {
-    todoList: [],
-  };
+  constructor() {
+    super();
+    this.state = {
+      todoList: [],
+      titleInput: "",
+      teaxtArea: "",
+    };
+
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+
+  submitHandler(event) {
+    event.preventDefault();
+    const titleInput = event.target.querySelector("#title").value;
+    const textArea = event.target.querySelector("textarea").value;
+    console.log(titleInput);
+    console.log(textArea);
+    this.setState({ titleInput: titleInput, textArea: textArea });
+  }
+
   render() {
     return (
       <Router>
         <div className="App">
-          <header>
-            <div className="logo-container">TODO-APP</div>
-            <div className="link-container">
-              <NavLink to="/" className="nav-links" exact>
-                ToDos
-              </NavLink>
-              <NavLink to="/create" className="nav-links">
-                create
-              </NavLink>
-            </div>
-          </header>
+          <Header />
           <div className="body-container">
             <Switch>
               <Route path="/create">
-                <CreateForm />
+                <CreateForm submitHandler={this.submitHandler} />
               </Route>
               <Route path="/">
                 <TodoList todoList={this.state.todoList} />
@@ -51,6 +59,28 @@ class App extends React.Component {
       console.log(response.data);
       this.setState({ todoList: response.data });
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.titleInput !== this.state.titleInput ||
+      prevState.textArea !== this.state.textArea
+    ) {
+      axios
+        .post("http://localhost:4000/todos/", {
+          title: this.state.titleInput,
+          description: this.state.textArea,
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    }
+    //  else if (prevState.todoList !== this.state.todoList) {
+    //   axios.get("http://localhost:4000/todos/").then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ todoList: response.data });
+    //   });
+    // }
   }
 }
 
