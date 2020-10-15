@@ -10,6 +10,7 @@ import {
 import "./App.css";
 
 import TodoList from "./TodoList/TodoList";
+import CreateForm from "./CreateForm/CreateForm";
 
 class App extends React.Component {
   state = {
@@ -32,7 +33,9 @@ class App extends React.Component {
           </header>
           <div className="body-container">
             <Switch>
-              <Route path="/create" render={() => <h2>create</h2>} />
+              <Route path="/create">
+                <CreateForm />
+              </Route>
               <Route path="/">
                 <TodoList todoList={this.state.todoList} />
               </Route>
