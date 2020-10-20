@@ -47,8 +47,8 @@ class TodoList extends React.Component {
   componentDidMount() {
     axios.get("http://localhost:4000/todos/").then((response) => {
       console.log(response.data);
-      store.dispatch({ type: "GET_ALL_TODO", data: response.data });
       // this.setState({ todoList: response.data });
+      store.dispatch({ type: "GET_ALL_TODO", data: response.data });
     });
   }
 
@@ -60,6 +60,7 @@ class TodoList extends React.Component {
         .then(() => {
           axios.get("http://localhost:4000/todos/").then((response) => {
             console.log(response.data);
+            // this.setState({ todoList: response.data });
             store.dispatch({ type: "GET_ALL_TODO", data: response.data });
           });
         });

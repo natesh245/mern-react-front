@@ -13,8 +13,8 @@ const initialState = {
 
   titleInput: "",
   teaxtArea: "",
-  message: "",
-  showMessage: false,
+  // message: "",
+  // showMessage: false,
 };
 
 function todoReducer(state = initialState, action) {
@@ -29,6 +29,12 @@ function todoReducer(state = initialState, action) {
       return {
         ...state,
         deleteId: action.deleteId,
+      };
+    case "CREATE_TODO":
+      return {
+        ...state,
+        titleInput: action.formData.titleInput,
+        textArea: action.formData.textArea,
       };
 
     default:

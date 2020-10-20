@@ -2,17 +2,19 @@ import React from "react";
 import "./CreateForm.css";
 
 import axios from "axios";
+import { connect } from "react-redux";
+import { store } from "./../index";
 
 class CreateForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      titleInput: "",
-      teaxtArea: "",
-      message: "",
-      showMessage: false,
-    };
+    // this.state = {
+    //   titleInput: "",
+    //   teaxtArea: "",
+    //   message: "",
+    //   showMessage: false,
+    // };
     this.submitHandler = this.submitHandler.bind(this);
   }
 
@@ -22,7 +24,9 @@ class CreateForm extends React.Component {
     const textArea = event.target.querySelector("textarea").value;
     console.log(titleInput);
     console.log(textArea);
-    this.setState({ titleInput: titleInput, textArea: textArea });
+    const formInputs = { titleInput: titleInput, textArea: textArea };
+    // this.setState({ titleInput: titleInput, textArea: textArea });
+    store.dispatch({ type: "CREATE_TODO", formData: formInputs });
   }
 
   render() {
@@ -36,29 +40,34 @@ class CreateForm extends React.Component {
           <textarea name="desc" rows="10" cols="50"></textarea>
           <input type="submit" value="create" />
         </form>
-        {this.state.showMessage ? (
+        {/* {this.state.showMessage ? (
           <div className="message">{this.state.message}</div>
-        ) : null}
+        ) : null} */}
       </div>
     );
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevState.titleInput !== this.state.titleInput ||
-      prevState.textArea !== this.state.textArea
+      prevProps.titleInput !== this.props.titleInput ||
+      prevProps.textArea !== this.props.textArea
     ) {
       axios
         .post("http://localhost:4000/todos/", {
-          title: this.state.titleInput,
-          description: this.state.textArea,
+          title: this.props.titleInput,
+          description: this.props.textArea,
         })
         .then((response) => {
-          console.log(response);
-          this.setState({ showMessage: true, message: response.data.message });
+          console.log(response.data.message);
+          // this.setState({ showMessage: true, message: response.data.message });
         });
     }
   }
 }
 
-export default CreateForm;
+const mapStateToProps = (state) => ({
+  titleInput: state.titleInput,
+  textArea: state.textArea,
+});
+
+export default connect(mapStateToProps)(CreateForm);
