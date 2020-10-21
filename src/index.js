@@ -13,8 +13,8 @@ const initialState = {
 
   titleInput: "",
   teaxtArea: "",
-  // message: "",
-  // showMessage: false,
+  message: "",
+  showMessage: false,
 };
 
 function todoReducer(state = initialState, action) {
@@ -35,6 +35,18 @@ function todoReducer(state = initialState, action) {
         ...state,
         titleInput: action.formData.titleInput,
         textArea: action.formData.textArea,
+      };
+    case "SHOW_MESSAGE":
+      return {
+        ...state,
+        message: action.message,
+        showMessage: true,
+      };
+    case "CLOSE_MESSAGE":
+      return {
+        ...state,
+
+        showMessage: false,
       };
 
     default:

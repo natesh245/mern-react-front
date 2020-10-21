@@ -40,9 +40,20 @@ class CreateForm extends React.Component {
           <textarea name="desc" rows="10" cols="50"></textarea>
           <input type="submit" value="create" />
         </form>
-        {/* {this.state.showMessage ? (
-          <div className="message">{this.state.message}</div>
-        ) : null} */}
+        {this.props.showMessage ? (
+          <div className="message">
+            {this.props.message}
+            <span
+              onClick={() => {
+                store.dispatch({
+                  type: "CLOSE_MESSAGE",
+                });
+              }}
+            >
+              x
+            </span>
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -60,6 +71,10 @@ class CreateForm extends React.Component {
         .then((response) => {
           console.log(response.data.message);
           // this.setState({ showMessage: true, message: response.data.message });
+          store.dispatch({
+            type: "SHOW_MESSAGE",
+            message: response.data.message,
+          });
         });
     }
   }
@@ -68,6 +83,8 @@ class CreateForm extends React.Component {
 const mapStateToProps = (state) => ({
   titleInput: state.titleInput,
   textArea: state.textArea,
+  message: state.message,
+  showMessage: state.showMessage,
 });
 
 export default connect(mapStateToProps)(CreateForm);

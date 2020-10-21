@@ -5,7 +5,7 @@ import Todo from "./Todo/Todo";
 
 import axios from "axios";
 
-import { store } from "./../index";
+// import { store } from "./../index";
 import { connect } from "react-redux";
 
 class TodoList extends React.Component {
@@ -22,7 +22,8 @@ class TodoList extends React.Component {
   deleteHandler(todoId) {
     console.log(todoId);
     // this.setState({ deleteId: todoId });
-    store.dispatch({ type: "DELETE_TODO", deleteId: todoId });
+    // store.dispatch({ type: "DELETE_TODO", deleteId: todoId });
+    this.props.deleteTodo(todoId);
   }
 
   render() {
@@ -48,7 +49,8 @@ class TodoList extends React.Component {
     axios.get("http://localhost:4000/todos/").then((response) => {
       console.log(response.data);
       // this.setState({ todoList: response.data });
-      store.dispatch({ type: "GET_ALL_TODO", data: response.data });
+      // store.dispatch({ type: "GET_ALL_TODO", data: response.data });
+      this.props.getAllTodos(response.data);
     });
   }
 
@@ -61,7 +63,8 @@ class TodoList extends React.Component {
           axios.get("http://localhost:4000/todos/").then((response) => {
             console.log(response.data);
             // this.setState({ todoList: response.data });
-            store.dispatch({ type: "GET_ALL_TODO", data: response.data });
+            // store.dispatch({ type: "GET_ALL_TODO", data: response.data });
+            this.props.getAllTodos(response.data);
           });
         });
     }
@@ -73,4 +76,9 @@ const mapStateToProps = (state) => ({
   deleteId: state.deleteId,
 });
 
-export default connect(mapStateToProps)(TodoList);
+const mapDispatchToProps = (dispatch) => ({
+  getAllTodos: (data) => dispatch({ type: "GET_ALL_TODO", data: data }),
+  deleteTodo: (todoId) => dispatch({ type: "DELETE_TODO", deleteId: todoId }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

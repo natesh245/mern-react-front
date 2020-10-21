@@ -48,11 +48,47 @@ form input[type="submit"] {
 }
 
 .message {
-  min-width: 5rem;
+  animation: showmessage 1s ease-in-out;
+  min-width: 6rem;
   position: absolute;
   bottom: 2rem;
   right: 2rem;
   background-color: greenyellow;
   padding: 1rem;
   font-size: 1.3rem;
+}
+
+.message span {
+  border-radius: 50%;
+  padding: 4px;
+  background-color: white;
+  position: absolute;
+  top: -10px;
+  right: -7px;
+}
+
+.message span:hover {
+  transform: scale(1.5);
+}
+
+@keyframes showmessage {
+  0% {
+    opacity: 0;
+    right: -6rem;
+  }
+  10% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
